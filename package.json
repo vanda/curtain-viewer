@@ -1,0 +1,17 @@
+{
+  "name": "y",
+  "version": "y",
+  "description": "A viewer based on OpenSeaDragon for stacking IIIF images, in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.",
+  "main": "index.js",
+  "repository": "https://github.com/vanda/layerstack",
+  "author": "Luca Carini",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "babel-loader": "^8.0.6",
+    "browserslist": "^4.8.2"
+  }
+}
