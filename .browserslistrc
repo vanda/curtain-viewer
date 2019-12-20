@@ -1,6 +1,10 @@
-# Browsers that we support
+[production staging]
+>5%
 last 2 versions
-> 1%
-maintained node versions
-not dead
-ie >= 9
+Firefox ESR
+not ie < 11
+
+[development]
+last 1 chrome version
+last 1 firefox version
+last 1 edge version
