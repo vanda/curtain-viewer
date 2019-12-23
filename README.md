@@ -1,8 +1,8 @@
-# Webpack Frontend Starterkit
+# LayerStack
 
-[![Dependabot badge](https://flat.badgen.net/dependabot/wbkd/webpack-starter?icon=dependabot)](https://dependabot.com/)
-
-A lightweight foundation for your next webpack based frontend project.
+A viewer based on OpenSeaDragon for stacking IIIF images, in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.
+Specific regions of interest are expected to be defined as a _Range_ of _FragmentSelector_ _SpecificResource_ items, e.g [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/#b-example-manifest-response)
+(The Compariscope editor, below, can assist with preparing region of interest paramaters)
 
 
 ### Installation

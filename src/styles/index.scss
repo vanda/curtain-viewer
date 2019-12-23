@@ -1,6 +1,18 @@
-$body-color: slateblue;
-
-body {
-  color: $body-color;
-  font-family: sans-serif;
-}
+html, body { height: 100%; margin: 0; }
+body { background: #fff; font: 14px/1 helvetica,arial,freesans,sans-serif; padding: 20px; }
+.layerstack { box-shadow: 0 0 3px #fff; height: 100%; outline: 0; position: relative; width: 100%; }
+.layerstack-osd { height: 80%; width: 100%; }
+.layerstack-zoom-ctrls { left: 20px; position: absolute; top: 20px; }
+#layerstack-zoom-in, #layerstack-zoom-out, #layerstack-full-screen { background: #fff; border: 1px solid #000; display: inline-block; height: 20px; width: 20px; }
+.layerstack-dash { background: #fff; font-size: 14px; width: calc(100% - 20px); margin: 20px auto 40px; max-width: 800px; padding: 10px; }
+.layerstack-fader, .layerstack-key { width: 100%; }
+.layerstack-fader { -webkit-appearance: none; background: #000; border: solid #fff; border-width: 10px 0; height: 4px; outline: none; position: relative; z-index: 1; }
+.layerstack-key { color: #000; font-weight: 800; height: 20px; margin-top: -10px; position: relative; }
+.layerstack-keyline { border-right: 1px solid #000; box-sizing: border-box; padding: 12px 4px 2px 0; position: absolute; text-align: right; }
+.layerstack-keyline:first-child, .layerstack-keyline:last-child { border: none; }
+.layerstack-keyline:last-child { padding-right: 0; }
+.layerstack-labels { border-top: 1px solid #fff; color: #000; padding: 34px 4px 10px; }
+.layerstack-label { cursor: pointer; display: flex; margin: 0 0 20px; }
+.layerstack-labelkey { font-weight: 800; }
+.layerstack-labeltext { margin-left: 10px; text-align: justify; }
+.layerstack .openseadragon-canvas { outline: none; }

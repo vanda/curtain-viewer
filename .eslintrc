@@ -7,6 +7,7 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
+  "ignorePatterns": ["manifesto*.js"],
   "rules": {
     "semi": 2
   }
