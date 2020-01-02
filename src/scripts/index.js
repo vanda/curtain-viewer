@@ -8,36 +8,49 @@ const iiifLayerStack = {
     iiifLayerStack.id += 1;
     const osd = document.createElement('div');
     osd.id = `layerstack${iiifLayerStack.id}`;
-    osd.className = 'layerstack-osd';
+    osd.className = 'layerstack__osd';
     el.stackHeight = 0;
     el.appendChild(osd);
     const zoomCtrls = el.appendChild(document.createElement('div'));
-    zoomCtrls.className = 'layerstack-zoom-ctrls';
+    zoomCtrls.className = 'layerstack__zoom-ctrls';
     const zoomIn = zoomCtrls.appendChild(document.createElement('a'));
-    zoomIn.id = 'layerstack-zoom-in';
+    zoomIn.className = 'layerstack__zoom-in';
+    zoomIn.id = zoomIn.className;
     zoomIn.title = 'Zoom in';
     zoomIn.href = '#zoom-in';
     const zoomOut = zoomCtrls.appendChild(document.createElement('a'));
-    zoomOut.id = 'layerstack-zoom-out';
+    zoomOut.className = 'layerstack__zoom-out';
+    zoomOut.id = zoomOut.className;
     zoomOut.title = 'Zoom out';
     zoomOut.href = '#zoom-out';
-    const fullScreen = zoomCtrls.appendChild(document.createElement('a'));
-    fullScreen.id = 'layerstack-full-screen';
-    fullScreen.title = 'Full screen';
-    fullScreen.href = '#full-screen';
     el.osd = OpenSeadragon({
       id: `layerstack${iiifLayerStack.id}`,
       showHomeControl: false,
-      zoomInButton: 'layerstack-zoom-in',
-      zoomOutButton: 'layerstack-zoom-out',
-      fullPageButton: 'layerstack-full-screen'
+      zoomInButton: 'layerstack__zoom-in',
+      zoomOutButton: 'layerstack__zoom-out'
     });
 
-    const dash = el.appendChild(document.createElement('div'));
-    dash.className = 'layerstack-dash';
+    const fullScreen = el.appendChild(document.createElement('a'));
+    fullScreen.className = 'layerstack__fullscreen';
+    fullScreen.title = 'Full screen';
+    fullScreen.href = '#full-screen';
+    document.addEventListener('click', (e) => {
+      if (e.target.closest(`.${fullScreen.className}`)) {
+        if (document.fullscreenElement === el) {
+          document.exitFullscreen();
+        } else {
+          el.requestFullscreen();
+        }
+      }
+    }, false);
+
+    const drawer = el.appendChild(document.createElement('div'));
+    drawer.className = 'layerstack__drawer';
+    const dash = drawer.appendChild(document.createElement('div'));
+    dash.className = 'layerstack__dash';
 
     el.fader = dash.appendChild(document.createElement('input'));
-    el.fader.className = 'layerstack-fader';
+    el.fader.className = 'layerstack__fader';
     el.fader.type = 'range';
     el.fader.min = 1;
     el.fader.step = 0.005;
@@ -49,10 +62,10 @@ const iiifLayerStack = {
     };
 
     el.key = dash.appendChild(document.createElement('div'));
-    el.key.className = 'layerstack-key';
+    el.key.className = 'layerstack__key';
 
     el.labels = dash.appendChild(document.createElement('div'));
-    el.labels.className = 'layerstack-labels';
+    el.labels.className = 'layerstack__labels';
 
     return el;
   },
@@ -81,18 +94,18 @@ const iiifLayerStack = {
     el.key.innerHTML = '';
     for (let i = 0; i < el.stackHeight; ++i) {
       el.key.innerHTML += `
-        <div class="layerstack-keyline" style="width:${i*100/(el.stackHeight-1)}%">${i+1}</div>
+        <div class="layerstack__keyline" style="width:${i*100/(el.stackHeight-1)}%">${i+1}</div>
       `;
     }
     el.labels.innerHTML += `
-      <div class="layerstack-label" data-layerstack-layer="${el.stackHeight}">
-        <div class="layerstack-labelkey">${el.stackHeight}</div>
-        <div class="layerstack-labeltext">${label}</div>
+      <div class="layerstack__label" data-layerstack-layer="${el.stackHeight}">
+        <div class="layerstack__labelkey">${el.stackHeight}</div>
+        <div class="layerstack__labeltext">${label}</div>
       </div>
     `;
     document.addEventListener('click', (e) => {
-      if (e.target.closest('.layerstack-label')) {
-        iiifLayerStack.fade(el, e.target.closest('.layerstack-label').dataset.layerstackLayer);
+      if (e.target.closest('.layerstack__label')) {
+        iiifLayerStack.fade(el, e.target.closest('.layerstack__label').dataset.layerstackLayer);
       }
     }, false);
   }
