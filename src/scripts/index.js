@@ -54,10 +54,17 @@ const iiifLayerStack = {
     el.fader.type = 'range';
     el.fader.min = 1;
     el.fader.step = 0.005;
-    el.fader.viewer = el;
+    const colors = window.getComputedStyle(el.fader);
+    const color1 = colors.getPropertyValue('background-color');
+    const color2 = colors.getPropertyValue('color');
+    el.fader.color = () => {
+      const percent = 100 * (el.fader.value - el.fader.min) / (el.fader.max - el.fader.min);
+      el.fader.style.background = `linear-gradient(to right, ${color2} 0%, ${color2} ${percent}%, ${color1} ${percent}%, ${color1} 100%)`;
+    }
     el.fader.oninput = (e) => { 
       window.requestAnimationFrame(() => {
         iiifLayerStack.fade(el, e.target.value);
+        el.fader.color();
       });
     };
 
@@ -74,6 +81,7 @@ const iiifLayerStack = {
     el.stackHeight += 1;
     el.fader.max = el.stackHeight;
     el.fader.value = el.fader.max;
+    el.fader.color();
     iiifLayerStack.key(el, label);
   },
   fade: (el, x) => {

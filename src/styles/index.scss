@@ -17,6 +17,17 @@ $colors: (
   @return map-get($colors, $c);
 }
 
+@mixin faderThumb {
+  appearance: none;
+  background: color(green);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 3px 4px 0 color(black);
+  height: 16px;
+  outline: none;
+  width: 8px;
+}
+
 .layerstack {
   background: color(black);
 	outline: 0;
@@ -124,11 +135,25 @@ $colors: (
 
   &__fader {
     appearance: none;
-    background: color(green);
-    height: 4px;
+    background: color(grey-2);
+    color: color(green);
+    height: 8px;
     outline: none;
     position: relative;
+    transition: background 450ms ease-in;
     z-index: 1;
+
+    &::-webkit-slider-thumb {
+      @include faderThumb;
+    }
+
+    &::-moz-range-thumb {
+      @include faderThumb;
+    }
+
+    &::-ms-thumb {
+      @include faderThumb;
+    }
   }
 
   &__key {
@@ -140,22 +165,12 @@ $colors: (
   }
 
   &__keyline {
-    border-right: 1px solid color(black);
+    border-right: 1px solid color(grey-2);
     box-sizing: border-box;
-    padding: 12px 4px 2px 0;
+    padding: 12px 2px 2px 0;
     position: absolute;
     text-align: right;
-
-    &:first-child,
-    &:last-child {
-      border: none;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
   }
-
 
   &__labels {
     color: color(white);
