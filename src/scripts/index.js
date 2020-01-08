@@ -60,7 +60,7 @@ const iiifLayerStack = {
     el.fader.color = () => {
       const percent = 100 * (el.fader.value - el.fader.min) / (el.fader.max - el.fader.min);
       el.fader.style.background = `linear-gradient(to right, ${color2} 0%, ${color2} ${percent}%, ${color1} ${percent}%, ${color1} 100%)`;
-    }
+    };
     el.fader.oninput = (e) => { 
       window.requestAnimationFrame(() => {
         iiifLayerStack.fade(el, e.target.value);

@@ -1,20 +1,31 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 $colors: (
   white: #ffffff,
   black: #000000,
-  black-2: #1d1e20,
+  grey1: #1d1e20,
+  grey2: #505354,
   green: #50e3c2,
-  grey-1: #393b3f,
-  grey-2: #505354,
-  grey-3: #747c80,
-  grey-4: #b7b8bd,
-  grey-5: #dee0e2,
-  grey-6: #eaeaea,
-  grey-7: #efefed,
-  grey-8: #f6f6f6,
 );
 
 @function color($c) {
   @return map-get($colors, $c);
+}
+
+@font-face {
+  font-family: 'The Sans';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../fonts/V&A TheSansA6-4SemiLight.woff2') format('woff2'), url('../fonts/V&A TheSansA6-4SemiLight.woff') format('woff');
+}
+
+@mixin bpMinSmall {
+  @media (min-width: 500px) {
+    @content;
+  }
 }
 
 @mixin faderThumb {
@@ -30,11 +41,20 @@ $colors: (
 
 .layerstack {
   background: color(black);
-	outline: 0;
+	font-family: 'The Sans', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 200;
+  height: 100%;
+  line-height: 1.43;
+  outline: 0;
 	position: relative;
 
+  @include bpMinSmall {
+    font-size: 14px;
+  }
+
   &__osd {
-    height: 420px;
+    height: calc(100% - 100px);
 
     .openseadragon-canvas {
       outline: none;
@@ -57,7 +77,7 @@ $colors: (
     cursor: pointer;
     display: block!important;
     height: 32px;
-    margin: 10px;
+    margin: 24px;
     position: relative;
     width: 32px;
     z-index: 1;
@@ -79,6 +99,10 @@ $colors: (
     &::after {
       transform: translate(-50%, -50%);
     }
+  }
+
+  &__zoom-out {
+    margin: -12px 100% 0 24px;
   }
 
   &__fullscreen {
@@ -118,14 +142,20 @@ $colors: (
   }
 
   &__drawer {
-    background: color(black-2);
+    background: color(grey1);
+
+    :fullscreen & {
+      bottom: 0;
+      height: 100px;
+      position: absolute;
+      width: 100%;
+    }
   }
 
   &__dash {
-    font-size: 14px;
-    margin: 20px auto 40px;
+    margin: auto;
     max-width: 800px;
-    padding: 10px;
+    padding: 35px 24px 24px;
   }
 
   &__fader,
@@ -135,7 +165,7 @@ $colors: (
 
   &__fader {
     appearance: none;
-    background: color(grey-2);
+    background: color(grey2);
     color: color(green);
     height: 8px;
     outline: none;
@@ -165,7 +195,7 @@ $colors: (
   }
 
   &__keyline {
-    border-right: 1px solid color(grey-2);
+    border-right: 1px solid color(grey2);
     box-sizing: border-box;
     padding: 12px 2px 2px 0;
     position: absolute;
@@ -184,7 +214,6 @@ $colors: (
   }
 
   &__labelkey {
-    font-weight: 800;
   }
 
   &__labeltext {
