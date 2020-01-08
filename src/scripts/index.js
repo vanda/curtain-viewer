@@ -13,16 +13,14 @@ const iiifLayerStack = {
     el.appendChild(osd);
     const zoomCtrls = el.appendChild(document.createElement('div'));
     zoomCtrls.className = 'layerstack__zoom-ctrls';
-    const zoomIn = zoomCtrls.appendChild(document.createElement('a'));
+    const zoomIn = zoomCtrls.appendChild(document.createElement('div'));
     zoomIn.className = 'layerstack__zoom-in';
     zoomIn.id = zoomIn.className;
     zoomIn.title = 'Zoom in';
-    zoomIn.href = '#zoom-in';
-    const zoomOut = zoomCtrls.appendChild(document.createElement('a'));
+    const zoomOut = zoomCtrls.appendChild(document.createElement('div'));
     zoomOut.className = 'layerstack__zoom-out';
     zoomOut.id = zoomOut.className;
     zoomOut.title = 'Zoom out';
-    zoomOut.href = '#zoom-out';
     el.osd = OpenSeadragon({
       id: `layerstack${iiifLayerStack.id}`,
       showHomeControl: false,
@@ -30,12 +28,11 @@ const iiifLayerStack = {
       zoomOutButton: 'layerstack__zoom-out'
     });
 
-    const fullScreen = el.appendChild(document.createElement('a'));
+    const fullScreen = el.appendChild(document.createElement('div'));
     fullScreen.className = 'layerstack__fullscreen';
     fullScreen.title = 'Full screen';
-    fullScreen.href = '#full-screen';
     document.addEventListener('click', (e) => {
-      if (e.target.closest(`.${fullScreen.className}`)) {
+      if (e.target.closest('.layerstack__fullscreen')) {
         if (document.fullscreenElement === el) {
           document.exitFullscreen();
         } else {
@@ -46,6 +43,15 @@ const iiifLayerStack = {
 
     const drawer = el.appendChild(document.createElement('div'));
     drawer.className = 'layerstack__drawer';
+    const handle = drawer.appendChild(document.createElement('div'));
+    handle.className = 'layerstack__drawer__handle';
+    handle.title = 'More information';
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.layerstack__drawer__handle')) {
+        drawer.classList.toggle('layerstack__drawer--open');
+      }
+    }, false);
+
     const dash = drawer.appendChild(document.createElement('div'));
     dash.className = 'layerstack__dash';
 

@@ -75,7 +75,7 @@ $colors: (
     border-radius: 50%;
     color: color(black);
     cursor: pointer;
-    display: block!important;
+    display: block;
     height: 32px;
     margin: 24px;
     position: relative;
@@ -124,7 +124,7 @@ $colors: (
 
     :fullscreen & {
       border-radius: 50%;
-    
+
       &::before {
         display: block;
         transform: translate(-50%, -50%) rotate(45deg);
@@ -144,11 +144,52 @@ $colors: (
   &__drawer {
     background: color(grey1);
 
+    &__handle {
+      display: none;
+      transition: transform 340ms;
+    }
+
+    &--open &__handle {
+      transform: rotate(-180deg);
+    }
+
     :fullscreen & {
       bottom: 0;
-      height: 100px;
+      cursor: pointer;
+      max-height: 100px;
       position: absolute;
+      transition: max-height 450ms;
       width: 100%;
+
+
+      &__handle {
+        background: color(grey1);
+        border: 1px solid color(green);
+        border-radius: 50%;
+        display: block;
+        height: 32px;
+        position: absolute;
+        right: 24px;
+        top: -16px;
+        width: 32px;
+        z-index: 1;
+
+        &::after {
+          border: solid color(white);
+          border-width: 0px 2px 2px 0px;
+          box-sizing: border-box;
+          content: '';
+          display: block;
+          height: 34%;
+          margin: auto;
+          transform: translate(0, 100%) rotate(225deg);
+          width: 34%;
+        }
+      }
+
+      &--open {
+        max-height: 50vh;
+      }
     }
   }
 
