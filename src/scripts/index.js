@@ -1,4 +1,5 @@
 import OpenSeadragon from 'openseadragon';
+import 'element-closest-polyfill';
 import './manifesto.bundle.js';
 import '../styles/index.scss';
 
