@@ -74,7 +74,6 @@ const iiifLayerStack = {
     el.fader.oninput = (e) => { 
       window.requestAnimationFrame(() => {
         iiifLayerStack.fade(el, e.target.value);
-        el.fader.color();
       });
     };
 
@@ -106,22 +105,24 @@ const iiifLayerStack = {
         el.osd.world.getItemAt(i-1).setOpacity(1);
       }
     }
+    el.fader.color();
   },
   key: (el, label) => {
-    const icon = '<svg role="img" viewBox="0 0 24 14"><path d="M22.214 7.162L11.622 1.286 1.031 7.162l10.591 5.876 10.592-5.876z"/></svg>';
+    const keyIcon = '<svg role="img" viewBox="0 0 24 14"><path d="M22.214 7.162L11.622 1.286 1.031 7.162l10.591 5.876 10.592-5.876z"/></svg>';
     el.key.innerHTML = '';
     for (let i = 0; i < el.stackHeight; ++i) {
       el.key.innerHTML += `
-        <div class="layerstack__keyline" style="width:${i*100/(el.stackHeight-1)}%"></div>
+        <div class="layerstack__key-line" style="width:${i*100/(el.stackHeight-1)}%">
+          <div class="layerstack__key-icon">${keyIcon.repeat(i+1)}</div>
+        </div>
       `;
     }
-    let keyIcon = [...Array(el.stackHeight)].map(() => { return icon; });
     el.labels.innerHTML += `
       <div class="layerstack__label" data-layerstack-layer="${el.stackHeight}">
-        <div class="layerstack__labelkey">
-          ${keyIcon}
+        <div class="layerstack__key-icon">
+          ${keyIcon.repeat(el.stackHeight)}
         </div>
-        <div class="layerstack__labeltext">${label}</div>
+        <div class="layerstack__label-text">${label}</div>
       </div>
     `;
     document.addEventListener('click', (e) => {

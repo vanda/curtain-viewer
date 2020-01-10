@@ -196,7 +196,7 @@ html, body {
 
   &__dash {
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
     padding: 35px 24px 24px;
   }
 
@@ -235,7 +235,7 @@ html, body {
     top: -5px;
   }
 
-  &__keyline {
+  &__key-line {
     border-right: 1px solid var(--grey2);
     box-sizing: border-box;
     height: 8px;
@@ -243,8 +243,35 @@ html, body {
     text-align: right;
   }
 
+  &__key-icon {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+
+    svg {
+      fill: var(--grey1);
+      flex-shrink: 0;
+      height: 14px;
+      stroke: var(--green);
+      width: 24px;
+
+      &:nth-child(n+2) {
+        margin-top: -17px;
+      }
+    }
+  }
+
+  &__key-line &__key-icon {
+    top: 12px;
+    left: 12px;
+  }
+
+  &__key-line:nth-child(1) &__key-icon {
+    left: -12px;
+  }
+
   &__labels {
-    margin: 50px 0 0;
+    margin: 50px 0 0 -12px;
   }
 
   &__label {
@@ -253,16 +280,11 @@ html, body {
     margin: 0 0 20px;
   }
 
-  &__labelkey {
-    svg {
-      fill: var(--grey1);
-      height: 24px;
-      stroke: var(--green);
-      width: 14px;
-    }
+  &__label &__key-icon {
+    justify-content: center;
   }
 
-  &__labeltext {
+  &__label-text {
     color: var(--white);
     margin-left: 10px;
     text-align: justify;
