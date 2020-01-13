@@ -212,6 +212,7 @@ html, body {
     height: 8px;
     outline: none;
     margin: 0;
+    padding: 0;
     position: relative;
     transition: background 450ms ease-in;
     z-index: 1;
@@ -226,6 +227,19 @@ html, body {
 
     &::-ms-thumb {
       @include faderThumb;
+    }
+
+    &::-ms-track {
+      background: transparent;
+      color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      background: transparent;
+    }
+
+    &::-ms-fill-upper {
+      background: transparent;
     }
   }
 
