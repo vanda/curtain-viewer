@@ -18,10 +18,10 @@ html, body {
 
 @mixin faderThumb {
   appearance: none;
-  background: var(--green);
+  background: var(--green, #50e3c2);
   border: none;
   border-radius: 0;
-  box-shadow: 0 3px 4px 0 var(--black);
+  box-shadow: 0 3px 4px 0 var(--black, #000000);
   height: 16px;
   outline: none;
   width: 8px;
@@ -33,7 +33,7 @@ html, body {
   --grey1: #1d1e20;
   --grey2: #505354;
   --green: #50e3c2;
-  background: var(--black);
+  background: var(--black, #000000);
 	font-family: 'The Sans', Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 200;
@@ -64,9 +64,9 @@ html, body {
   &__zoom-in,
   &__zoom-out,
   &__fullscreen {
-    background: var(--white);
+    background: var(--white, #ffffff);
     border-radius: 50%;
-    color: var(--black);
+    color: var(--black, #000000);
     cursor: pointer;
     display: block;
     height: 32px;
@@ -111,7 +111,7 @@ html, body {
     }
 
     svg {
-      fill: var(--grey);
+      fill: var(--grey1, #1d1e20);
       height: 60%;
       margin: auto;
       opacity: .6;
@@ -143,7 +143,7 @@ html, body {
   }
 
   &__drawer {
-    background: var(--grey1);
+    background: var(--grey1, #1d1e20);
 
     &__handle {
       display: none;
@@ -164,8 +164,8 @@ html, body {
 
 
       &__handle {
-        background: var(--grey1);
-        border: 1px solid var(--green);
+        background: var(--grey1, #1d1e20);
+        border: 1px solid var(--green, #50e3c2);
         border-radius: 50%;
         display: block;
         height: 32px;
@@ -176,7 +176,7 @@ html, body {
         z-index: 1;
 
         &::after {
-          border: solid var(--white);
+          border: solid var(--white, #ffffff);
           border-width: 0px 2px 2px 0px;
           box-sizing: border-box;
           content: '';
@@ -207,8 +207,8 @@ html, body {
 
   &__fader {
     appearance: none;
-    background: var(--grey2);
-    color: var(--green);
+    background: var(--grey2, #505354);
+    color: var(--green, #50e3c2);
     height: 8px;
     outline: none;
     margin: 0;
@@ -230,13 +230,13 @@ html, body {
   }
 
   &__key {
-    color: var(--green);
+    color: var(--green, #50e3c2);
     position: relative;
     top: -5px;
   }
 
   &__key-line {
-    border-right: 1px solid var(--grey2);
+    border-right: 1px solid var(--grey2, #505354);
     box-sizing: border-box;
     height: 8px;
     position: absolute;
@@ -249,10 +249,10 @@ html, body {
     position: relative;
 
     svg {
-      fill: var(--grey1);
+      fill: var(--grey1, #1d1e20);
       flex-shrink: 0;
       height: 14px;
-      stroke: var(--green);
+      stroke: var(--green, #50e3c2);
       width: 24px;
 
       &:nth-child(n+2) {
@@ -285,7 +285,7 @@ html, body {
   }
 
   &__label-text {
-    color: var(--white);
+    color: var(--white, #ffffff);
     margin-left: 10px;
     text-align: justify;
     text-decoration: underline;
