@@ -1,7 +1,8 @@
+import '../styles/index.scss';
 import OpenSeadragon from 'openseadragon';
 import 'element-closest-polyfill';
+import 'fullscreen-polyfill';
 import './manifesto.bundle.js';
-import '../styles/index.scss';
 
 const iiifLayerStack = {
   id: 0,
@@ -38,7 +39,7 @@ const iiifLayerStack = {
     `;
     document.addEventListener('click', (e) => {
       if (e.target.closest('.layerstack__fullscreen')) {
-        if (document.fullscreenElement === el) {
+        if (document.fullscreenElement) {
           document.exitFullscreen();
         } else {
           el.requestFullscreen();
