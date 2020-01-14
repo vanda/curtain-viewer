@@ -2,14 +2,14 @@ import '../styles/index.scss';
 import OpenSeadragon from 'openseadragon';
 import 'element-closest-polyfill';
 import 'fullscreen-polyfill';
-import './manifesto.bundle.js';
+import './manifesto.js';
 
-const iiifLayerStack = {
+const LayerStack = {
   id: 0,
   init: (el) => {
-    iiifLayerStack.id += 1;
+    LayerStack.id += 1;
     const osd = document.createElement('div');
-    osd.id = `layerstack${iiifLayerStack.id}`;
+    osd.id = `layerstack${LayerStack.id}`;
     osd.className = 'layerstack__osd';
     el.stackHeight = 0;
     el.appendChild(osd);
@@ -24,7 +24,7 @@ const iiifLayerStack = {
     zoomOut.id = zoomOut.className;
     zoomOut.title = 'Zoom out';
     el.osd = OpenSeadragon({
-      id: `layerstack${iiifLayerStack.id}`,
+      id: `layerstack${LayerStack.id}`,
       showHomeControl: false,
       showFullPageControl: false,
       zoomInButton: 'layerstack__zoom-in',
@@ -75,7 +75,7 @@ const iiifLayerStack = {
     };
     el.fader.oninput = el.fader.onchange = (e) => {
       window.requestAnimationFrame(() => {
-        iiifLayerStack.fade(el, e.target.value);
+        LayerStack.fade(el, e.target.value);
       });
     };
 
@@ -92,7 +92,7 @@ const iiifLayerStack = {
     el.fader.max = el.stackHeight;
     el.fader.value = el.fader.max;
     el.fader.color();
-    iiifLayerStack.key(el, label);
+    LayerStack.key(el, label);
   },
   fade: (el, x) => {
     el.fader.value = x;
@@ -129,7 +129,7 @@ const iiifLayerStack = {
     `;
     document.addEventListener('click', (e) => {
       if (e.target.closest('.layerstack__label')) {
-        iiifLayerStack.fade(el, e.target.closest('.layerstack__label').dataset.layerstackLayer);
+        LayerStack.fade(el, e.target.closest('.layerstack__label').dataset.layerstackLayer);
       }
     }, false);
   }
@@ -139,11 +139,11 @@ const iiifLayerStack = {
 Array.from(document.querySelectorAll('.layerstack'), (ls) => {
   const m = ls.dataset.iiifManifest;
   if (m) {
-    manifesto.loadManifest(m).then((manifest) => {
-      const viewer = iiifLayerStack.init(ls);
+    Manifesto.loadManifest(m).then((manifest) => {
+      const viewer = LayerStack.init(ls);
       let mf = null;
       try {
-       mf = manifesto.create(manifest);
+       mf = Manifesto.create(manifest);
       } catch(error) {
         console.log("Invalid manifest");
         return false;
@@ -216,7 +216,7 @@ Array.from(document.querySelectorAll('.layerstack'), (ls) => {
             }
           };
         }
-        iiifLayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
+        LayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
       });
 
       if (ls.dataset.noFade) {
