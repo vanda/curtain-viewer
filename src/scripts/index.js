@@ -136,95 +136,92 @@ const iiifLayerStack = {
 };
 
 
-const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-let m = '/public/manifest_constable.json';
-
-if (!qstr.has('manifest')) {
-  document.location.search = 'manifest=' + m;
-} else {
-  m = qstr.get('manifest');
-}
-manifesto.loadManifest(m).then((manifest) => {
-  const viewer = iiifLayerStack.init(document.querySelector('.js-layerstack'));
-  let mf = null;
-  try {
-   mf = manifesto.create(manifest);
-  } catch(error) {
-    alert("Invalid manifest");
-    return false;
-  }
-  let i = 0;
-  let vwScaler = null;
-  let layers = null;
-
-  /* P2 manifest, else P3 */
-  if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-    console.log("Note! Any specific alignment of layers should be supplied as regions in Fragment Selectors in a P3 manifest.");
-    layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
-      return { canvas: item };
-    });
-  } else {
-    const stack = mf.getAllRanges().find((range) => {
-      return range.__jsonld.behavior.includes('superimpose-regions');
-    });
-    if (!stack) {
-      alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
-      return false;
-    }
-    layers = Array.from(stack.__jsonld.items, (item) => {
-      return {
-        canvas: mf.getSequences()[0].getCanvasById(item.source),
-        region: item.selector.value
-      };
-    });
-  }
-
-  Array.from(layers, (layer) => {
-    const osdArgs = {};
-    let img = null;
-    let region = null;
-    let viewWidth = null;
-
-    /* P2 manifest, else P3 */
-    if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-      img = layer.canvas.getImages()[0].getResource().getServices()[0].id;
-    } else {
-      img = layer.canvas.getContent()[0].getBody()[0].getServices()[0].id;
-      region = layer.region.slice(9).split(',');
-    }
-
-    osdArgs.tileSource = `${img}/info.json`;
-    if (region) {
-      i += 1;
-      if (i === 1) {
-        viewWidth = 1;
-        vwScaler = region[2];
-      } else {
-        viewWidth = vwScaler / region[2];
+Array.from(document.querySelectorAll('.layerstack'), (ls) => {
+  const m = ls.dataset.iiifManifest;
+  if (m) {
+    manifesto.loadManifest(m).then((manifest) => {
+      const viewer = iiifLayerStack.init(ls);
+      let mf = null;
+      try {
+       mf = manifesto.create(manifest);
+      } catch(error) {
+        console.log("Invalid manifest");
+        return false;
       }
-      osdArgs.success = function (data) {
-        data.item.setWidth(viewWidth);
-        data.item.setPosition(
-          new OpenSeadragon.Point(
-            -(region[0] / 100) * data.item.getBounds().width, 
-            -(region[1]  / 100) * data.item.getBounds().height
-          )
-        );
-        if (data.item.viewer.world.getItemCount() === 1) {
-          //~ data.item.viewport.zoomTo(100 / region[2]);
-          data.item.viewport.panTo(
-            new OpenSeadragon.Point(
-              (region[0] / 100) + (region[2] / 200),
-              ((region[1] / 100) + (region[3] / 200)) 
-              * data.item.getBounds().height / data.item.getBounds().width)
-          );
-        }
-      };
-    }
-    iiifLayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
-  });
+      let i = 0;
+      let vwScaler = null;
+      let layers = null;
 
-  if (qstr.has('nofade')) {
-    viewer.nofade = true;
+      /* P2 manifest, else P3 */
+      if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+        console.log("Note! Any specific alignment of layers should be supplied as regions in Fragment Selectors in a P3 manifest.");
+        layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+          return { canvas: item };
+        });
+      } else {
+        const stack = mf.getAllRanges().find((range) => {
+          return range.__jsonld.behavior.includes('superimpose-regions');
+        });
+        if (!stack) {
+          alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
+          return false;
+        }
+        layers = Array.from(stack.__jsonld.items, (item) => {
+          return {
+            canvas: mf.getSequences()[0].getCanvasById(item.source),
+            region: item.selector.value
+          };
+        });
+      }
+
+      Array.from(layers, (layer) => {
+        const osdArgs = {};
+        let img = null;
+        let region = null;
+        let viewWidth = null;
+
+        /* P2 manifest, else P3 */
+        if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+          img = layer.canvas.getImages()[0].getResource().getServices()[0].id;
+        } else {
+          img = layer.canvas.getContent()[0].getBody()[0].getServices()[0].id;
+          region = layer.region.slice(9).split(',');
+        }
+
+        osdArgs.tileSource = `${img}/info.json`;
+        if (region) {
+          i += 1;
+          if (i === 1) {
+            viewWidth = 1;
+            vwScaler = region[2];
+          } else {
+            viewWidth = vwScaler / region[2];
+          }
+          osdArgs.success = function (data) {
+            data.item.setWidth(viewWidth);
+            data.item.setPosition(
+              new OpenSeadragon.Point(
+                -(region[0] / 100) * data.item.getBounds().width, 
+                -(region[1]  / 100) * data.item.getBounds().height
+              )
+            );
+            if (data.item.viewer.world.getItemCount() === 1) {
+              //data.item.viewport.zoomTo(100 / region[2]);
+              data.item.viewport.panTo(
+                new OpenSeadragon.Point(
+                  (region[0] / 100) + (region[2] / 200),
+                  ((region[1] / 100) + (region[3] / 200)) 
+                  * data.item.getBounds().height / data.item.getBounds().width)
+              );
+            }
+          };
+        }
+        iiifLayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
+      });
+
+      if (ls.dataset.noFade) {
+        ls.nofade = true;
+      }
+    });
   }
 });
