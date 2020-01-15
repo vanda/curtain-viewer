@@ -10,7 +10,7 @@ const LayerStack = {
     LayerStack.id += 1;
     const osd = document.createElement('div');
     osd.id = `layerstack${LayerStack.id}`;
-    osd.className = 'layerstack__osd';
+    osd.className = 'layerstack__viewer';
     el.stackHeight = 0;
     el.appendChild(osd);
     const zoomCtrls = el.appendChild(document.createElement('div'));

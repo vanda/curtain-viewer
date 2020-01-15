@@ -37,7 +37,6 @@ html, body {
 	font-family: 'The Sans', Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 200;
-  height: 100%;
   line-height: 1.43;
   outline: 0;
 	position: relative;
@@ -46,8 +45,12 @@ html, body {
     font-size: 14px;
   }
 
-  &__osd {
-    height: calc(100% - 100px);
+  &__viewer {
+    height: 500px;
+
+    :fullscreen & {
+      height: calc(100vh - 100px);
+    }
 
     .openseadragon-canvas {
       outline: none;
