@@ -21,6 +21,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --colors",
     "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
+    "version": "npm run build && gh-pages -d build",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "eslint": "^6.7.2",
     "eslint-loader": "^3.0.3",
     "file-loader": "^4.3.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.0.0-beta.11",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.1",
