@@ -115,7 +115,7 @@ const LayerStack = {
     for (let i = 0; i < el.stackHeight; ++i) {
       el.key.innerHTML += `
         <div class="layerstack__key-line" style="width:${i*100/(el.stackHeight-1)}%">
-          <div class="layerstack__key-icon">${keyIcon.repeat(i+1)}</div>
+          <div class="layerstack__key-icon" data-layerstack-layer="${(i+1)}">${keyIcon.repeat(i+1)}</div>
         </div>
       `;
     }
@@ -128,8 +128,8 @@ const LayerStack = {
       </div>
     `;
     document.addEventListener('click', (e) => {
-      if (e.target.closest('.layerstack__label')) {
-        LayerStack.fade(el, e.target.closest('.layerstack__label').dataset.layerstackLayer);
+      if (e.target.closest('.layerstack__key-icon, .layerstack__label')) {
+        LayerStack.fade(el, e.target.closest('[data-layerstack-layer]').dataset.layerstackLayer);
       }
     }, false);
   }
