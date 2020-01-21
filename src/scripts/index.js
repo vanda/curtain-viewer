@@ -63,6 +63,7 @@ const LayerStack = {
 
     el.fader = dash.appendChild(document.createElement('input'));
     el.fader.className = 'layerstack__fader';
+    el.fader.title = 'Layer slider';
     el.fader.type = 'range';
     el.fader.min = 1;
     el.fader.step = 0.005;
@@ -115,13 +116,13 @@ const LayerStack = {
     for (let i = 0; i < el.stackHeight; ++i) {
       el.key.innerHTML += `
         <div class="layerstack__key-line" style="width:${i*100/(el.stackHeight-1)}%">
-          <div class="layerstack__key-icon" data-layerstack-layer="${(i+1)}">${keyIcon.repeat(i+1)}</div>
+          <div class="layerstack__key-icon" data-layerstack-layer="${(i+1)}" title="Layer ${(i+1)}">${keyIcon.repeat(i+1)}</div>
         </div>
       `;
     }
     el.labels.innerHTML += `
       <div class="layerstack__label" data-layerstack-layer="${el.stackHeight}">
-        <div class="layerstack__key-icon">
+        <div class="layerstack__key-icon" title="Layer ${el.stackHeight}">
           ${keyIcon.repeat(el.stackHeight)}
         </div>
         <div class="layerstack__label-text">${label}</div>

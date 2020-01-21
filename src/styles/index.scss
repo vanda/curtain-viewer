@@ -261,6 +261,7 @@ html, body {
   }
 
   &__key-icon {
+    cursor: pointer;
     display: inline-flex;
     flex-direction: column;
     position: relative;
