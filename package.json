@@ -1,7 +1,7 @@
 {
   "name": "layerstack",
   "version": "1.0.1",
-  "description": "A light foundation for your next frontend project based on webpack.",
+  "description": "A viewer for superimposed, aligned IIIF images.",
   "keywords": [
     "v&a",
     "museum",
