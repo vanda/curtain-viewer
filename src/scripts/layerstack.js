@@ -226,4 +226,4 @@ const layerStacker = function(layerstackEl) {
   }
 };
 
-export {layerStacker as default, LayerStack};
+export { layerStacker as default, LayerStack };
