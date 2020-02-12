@@ -136,7 +136,7 @@ const LayerStack = {
   }
 };
 
-export default function (layerstackEl) {
+const layerStacker = function(layerstackEl) {
   const m = layerstackEl.dataset.iiifManifest;
   if (m) {
     Manifesto.loadManifest(m).then((manifest) => {
@@ -224,4 +224,6 @@ export default function (layerstackEl) {
       }
     });
   }
-}
+};
+
+export {layerStacker as default, LayerStack};
