@@ -41,6 +41,7 @@
   }
 
   &__viewer {
+    cursor: pointer;
     height: 500px;
 
     :fullscreen & {
