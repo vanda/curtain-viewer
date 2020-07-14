@@ -84,11 +84,8 @@ const LayerStack = {
     el.key.className = 'layerstack__key';
     el.labels = dash.appendChild(document.createElement('div'));
     el.labels.className = 'layerstack__labels';
-
-    return el;
   },
-  addItem: (el, osdArgs, label) => {
-    el.osd.addTiledImage(osdArgs);
+  indexItem: (el, label) => {
     el.stackHeight += 1;
     el.fader.max = el.stackHeight;
     el.fader.value = el.fader.max;
@@ -140,11 +137,11 @@ const layerStacker = function(layerstackEl) {
   const m = layerstackEl.dataset.iiifManifest;
   if (m) {
     Manifesto.loadManifest(m).then((manifest) => {
-      const viewer = LayerStack.init(layerstackEl);
+      LayerStack.init(layerstackEl);
       let mf = null;
       try {
        mf = Manifesto.create(manifest);
-      } catch(error) {
+      } catch(err) {
         console.log("Invalid manifest");
         return false;
       }
@@ -197,7 +194,7 @@ const layerStacker = function(layerstackEl) {
           } else {
             viewWidth = vwScaler / region[2];
           }
-          osdArgs.success = function (data) {
+          osdArgs.success = (data) => {
             data.item.setWidth(viewWidth);
             data.item.setPosition(
               new OpenSeadragon.Point(
@@ -214,9 +211,10 @@ const layerStacker = function(layerstackEl) {
                   * data.item.getBounds().height / data.item.getBounds().width)
               );
             }
+            LayerStack.indexItem(layerstackEl, layer.canvas.getLabel()[0].value);
           };
         }
-        LayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
+        layerstackEl.osd.addTiledImage(osdArgs);
       });
 
       if (layerstackEl.dataset.noFade) {
