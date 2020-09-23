@@ -1,5 +1,5 @@
-import layerStacker, { LayerStack } from './layerstack';
+import raphaelViewerLoader, { RaphaelViewer } from './raphael-viewer';
 
-Array.from(document.querySelectorAll('.layerstack'), (layerstackEl) => {
-  layerStacker(layerstackEl);
+Array.from(document.querySelectorAll('.raphael-viewer'), (raphaelViewerEl) => {
+  raphaelViewerLoader(raphaelViewerEl);
 });

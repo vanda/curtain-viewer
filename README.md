@@ -1,8 +1,6 @@
-# LayerStack
+# Raphael Viewer
 
-A [viewer](https://vanda.github.io/layerstack/) based on OpenSeaDragon for stacking images in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.
-Specific regions of interest are expected to be defined as a _Range_ of _FragmentSelector_ _SpecificResource_ items, e.g [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/#b-example-manifest-response)
-(The [Compariscope](https://github.com/vanda/iiif-features#the-compariscope) editor, can assist with preparing region of interest paramaters)
+A [viewer](https://vanda.github.io/raphael-viewer/) based on OpenSeaDragon, using the [curtain-sync plugin](https://github.com/cuberis/openseadragon-curtain-sync) for comparing aligned image variants, such as those obtained by multi-spectral imaging, supplied as canvases in a IIIF manifest.
 
 
 ### Installation
