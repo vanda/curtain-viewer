@@ -37,9 +37,8 @@ const RaphaelViewer = {
 
     const dash = drawer.appendChild(document.createElement('div'));
     dash.className = 'raphael-viewer__dash';
-
-    el.labels = dash.appendChild(document.createElement('div'));
-    el.labels.className = 'raphael-viewer__labels';
+    el.key = dash.appendChild(document.createElement('div'));
+    el.key.className = 'raphael-viewer__labels';
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('.raphael-viewer__fullscreen')) {
@@ -52,14 +51,22 @@ const RaphaelViewer = {
       else if (e.target.closest('.raphael-viewer__drawer__handle')) {
         drawer.classList.toggle('raphael-viewer__drawer--open');
       }
+      else if (e.target.closest('.raphael-viewer__key-layer')) {
+        const toggle = e.target.closest('.raphael-viewer__key-layer');
+        toggle.classList.toggle('active');
+        el.osd.setImageShown(toggle.dataset.layerKey, toggle.classList.contains('active'));
+        el.osd.setZoom(el.osd.getZoom() + 0.000000000001);
+      }
     }, false);
   },
-  label: (el, label) => {
-    el.labels.innerHTML += `
-      <div class="raphael-viewer__label">
-        <div class="raphael-viewer__key-icon" title="Show/Hide ${label}"></div>
-        <div class="raphael-viewer__label-text">${label}</div>
-      </div>
+  key: (el, label, layerKey) => {
+    const toggle = el.key.appendChild(document.createElement('div'));
+    toggle.className = 'raphael-viewer__key-layer active';
+    toggle.title = `Show/Hide ${label}`;
+    toggle.dataset.layerKey = layerKey;
+    toggle.innerHTML += `
+      ${label}
+      <div class="raphael-viewer__key-toggle"></div>
     `;
   }
 };
@@ -69,35 +76,12 @@ const raphaelViewerLoader = function(raphaelViewerEl) {
   if (m) {
     Manifesto.loadManifest(m).then((manifest) => {
       RaphaelViewer.init(raphaelViewerEl);
-      let mf = null;
-      try {
-       mf = Manifesto.create(manifest);
-      } catch(err) {
-        console.log("Invalid manifest");
-        return false;
-      }
-      let layers = null;
 
-      /* P2 manifest, else P3 */
-      if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-        console.log("Note! Any specific alignment of layers should be supplied as regions in Fragment Selectors in a P3 manifest.");
-        layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
-          return { canvas: item };
-        });
-      } else {
-        const stack = mf.getAllRanges().find((range) => {
-          return range.__jsonld.behavior.includes('superimpose-regions');
-        });
-        if (!stack) {
-          alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
-          return false;
-        }
-        layers = Array.from(stack.__jsonld.items, (item) => {
-          return {
-            canvas: mf.getSequences()[0].getCanvasById(item.source),
-          };
-        });
-      }
+      let mf = Manifesto.create(manifest);console.log(Manifesto.LanguageMap.getValue(mf.getLabel(), 'en-gb'));
+
+      let layers = layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+        return { canvas: item };
+      });
 
       const curtainSyncArgs = {
         container: raphaelViewerEl.osd,
@@ -106,33 +90,29 @@ const raphaelViewerLoader = function(raphaelViewerEl) {
           showHomeControl: false,
           showFullPageControl: false,
           zoomInButton: 'raphael-viewer__zoom-in',
-          zoomOutButton: 'raphael-viewer__zoom-out',
-          success: (data) => {
-            console.log(1); //RaphaelViewer.label(raphaelViewerEl, layer.canvas.getLabel()[0].value);
-          }
+          zoomOutButton: 'raphael-viewer__zoom-out'
         }
       };
 
+      let i = 0;
       Array.from(layers, (layer) => {
-        let img = null;
-
-        /* P2 manifest, else P3 */
-        if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-          img = layer.canvas.getImages()[0].getResource().getServices()[0].id;
-        } else {
-          img = layer.canvas.getContent()[0].getBody()[0].getServices()[0].id;
-        }
+        i += 1;
+        const key = `layerKey-${i}`;
+        let img = img = layer.canvas.getImages()[0].getResource().getServices()[0].id;
 
         curtainSyncArgs.images.push({
-          key: 'my-key-1',
+          key: key,
           tileSource: `${img}/info.json`,
           shown: true
         });
+
+        RaphaelViewer.key(raphaelViewerEl, Manifesto.LanguageMap.getValue(layer.canvas.getLabel(), 'en-gb'), key);
       });
 
       raphaelViewerEl.osd = new CurtainSyncViewer(curtainSyncArgs);
       raphaelViewerEl.osd.setMode('curtain');
-    });
+
+    }).catch(e => console.error(e.name, e.message));
   }
 };
 

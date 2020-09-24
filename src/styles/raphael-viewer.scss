@@ -27,10 +27,11 @@
   --black: #000000;
   --grey1: #1d1e20;
   --grey2: #505354;
+  --grey3: #b7b8bd;
   --green: #50e3c2;
   background: var(--black, #000000);
 	font-family: 'The Sans', Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 200;
   line-height: 1.43;
   outline: 0;
@@ -199,20 +200,43 @@
     padding: 35px 24px 24px;
   }
 
-  &__labels {
+  &__key {
     margin: 50px 0 0 -12px;
   }
 
-  &__label {
+  &__key-layer {
+    color: var(--white, #ffffff);
     cursor: pointer;
-    display: flex;
     margin: 0 0 20px;
+    text-align: center;
   }
 
-  &__label-text {
-    color: var(--white, #ffffff);
-    margin-left: 10px;
-    text-align: justify;
-    text-decoration: underline;
+  &__key-toggle {
+    background: var(--grey3, #b7b8bd);
+    border-radius: 12px;
+    height: 24px;
+    margin: 10px auto 0;
+    position: relative;
+    width: 44px;
+
+    &::after {
+      background: var(--white, #ffffff);
+      border-radius: 50%;
+      content: '';
+      height: 20px;
+      left: 2px;
+      position: absolute;
+      top: 2px;
+      transition: transform 340ms;
+      width: 20px;
+    }
+  }
+
+  &__key-layer.active &__key-toggle {
+    background: var(--green, #50e3c2);
+
+    &::after {
+      transform: translateX(20px);
+    }
   }
 }
