@@ -1,5 +1,5 @@
 /* eslint-disable */
-import OpenSeadragon from 'openseadragon'; //v&a customisation
+import OpenSeadragon from 'openseadragon'; /* v&a customisation */
 
 'use strict';
 
@@ -175,6 +175,7 @@ import OpenSeadragon from 'openseadragon'; //v&a customisation
       if (image.curtain.tiledImage) {
         image.curtain.tiledImage.setOpacity(image.shown ? 1 : 0);
       }
+      this.updateClip(); /* v&a customisation */
     },
 
     // ----------
@@ -185,6 +186,16 @@ import OpenSeadragon from 'openseadragon'; //v&a customisation
       var viewportPos = this.viewer.viewport.pointFromPixel(viewerPos, true);
       var tiledImage, imageSize, imagePos, clip;
       var shownImages = this.getShownImages();
+
+      /* v&a customisation */
+      if (shownImages.length > 0) {
+        tiledImage = shownImages[0].curtain.tiledImage;
+        if (tiledImage) {
+          imageSize = tiledImage.getContentSize();
+          clip = new OpenSeadragon.Rect(0, 0, imageSize.x, imageSize.y);
+          tiledImage.setClip(clip);
+        }
+      }
 
       if (shownImages.length > 1) {
         tiledImage = shownImages[1].curtain.tiledImage;
@@ -391,7 +402,7 @@ import OpenSeadragon from 'openseadragon'; //v&a customisation
     this.lastViewportEventTime = 0;
     this.images = [];
     this.osdOptions = args.osdOptions || {};
-    // this.osdOptions.showNavigationControl = false; // hardcode to override this option   //v&a customisation
+    // this.osdOptions.showNavigationControl = false; // hardcode to override this option   /* v&a customisation */
 
     if (getComputedStyle(this.container).position === 'static') {
       this.container.style.position = 'relative';
