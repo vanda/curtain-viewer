@@ -6,7 +6,7 @@
 }
 
 @mixin bpMinSmall {
-  @media (min-width: 500px) {
+  @media (min-width: 768px) {
     @content;
   }
 }
@@ -41,7 +41,11 @@
     font-size: 14px;
   }
 
-  &__viewer {
+  &__viewers {
+    position: relative;
+	}
+
+  &__osd {
     cursor: pointer;
     height: 500px;
 
@@ -55,6 +59,8 @@
   }
 
   &__zoom-ctrls {
+    display: flex;
+    flex-direction: column;
     left: 0;
     position: absolute;
     top: 0;
@@ -71,6 +77,7 @@
     display: block;
     height: 32px;
     margin: 24px;
+    outline: none;
     position: relative;
     width: 32px;
     z-index: 1;
@@ -95,7 +102,7 @@
   }
 
   &__zoom-out {
-    margin: -12px 100% 0 24px;
+    margin-top: 0;
   }
 
   &__fullscreen {
@@ -194,28 +201,49 @@
     }
   }
 
-  &__dash {
-    margin: auto;
-    max-width: 720px;
-    padding: 35px 24px 24px;
+  &__legend {
+    color: var(--white, #ffffff);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 34px 24px;
+  }
+
+  &__label {
+    order: 1;
+    width: 100%;
+
+    @include bpMinSmall {
+      margin-left: auto;
+      min-width: 340px;
+      width: 34%;
+    }
   }
 
   &__key {
-    margin: 50px 0 0 -12px;
-  }
-
-  &__key-layer {
-    color: var(--white, #ffffff);
     cursor: pointer;
-    margin: 0 0 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    outline: none;
+    width: 30%;
+
+    @include bpMinSmall {
+      margin-bottom: 0;
+      width: 12%;
+
+      #{&} + & {
+        margin-left: 35px;
+      }
+    }
   }
 
   &__key-toggle {
     background: var(--grey3, #b7b8bd);
     border-radius: 12px;
     height: 24px;
-    margin: 10px auto 0;
+    margin-top: 10px;
     position: relative;
     width: 44px;
 
@@ -232,7 +260,7 @@
     }
   }
 
-  &__key-layer.active &__key-toggle {
+  &__key.active &__key-toggle {
     background: var(--green, #50e3c2);
 
     &::after {

@@ -402,7 +402,7 @@ import OpenSeadragon from 'openseadragon'; /* v&a customisation */
     this.lastViewportEventTime = 0;
     this.images = [];
     this.osdOptions = args.osdOptions || {};
-    // this.osdOptions.showNavigationControl = false; // hardcode to override this option   /* v&a customisation */
+    this.osdOptions.showNavigationControl = false; // hardcode to override this option   
 
     if (getComputedStyle(this.container).position === 'static') {
       this.container.style.position = 'relative';
