@@ -29,19 +29,19 @@ const RaphaelViewer = {
         </svg>
       </div>
       <div class="raphael-viewer__drawer">
-        <div class="raphael-viewer__drawer__handle" title="See more" tabindex="0"></div>
-        <div class="raphael-viewer__menu"></div>
+        <div class="raphael-viewer__menu" role="listbox" aria-label="image selector">
+          <img class="raphael-viewer__menu-tab" src="" alt="" title="">
+        </div>
       </div>
     `;
 
     el.viewers = el.querySelector('.raphael-viewer__viewers');
     el.viewer = el.viewers.removeChild(el.viewers.querySelector('.raphael-viewer__viewer'));
-    el.activeViewer = null;
-
     const legend = el.viewer.querySelector('.raphael-viewer__legend');
     el.key = legend.removeChild(legend.querySelector('.raphael-viewer__key'));
-
-    const drawer = el.querySelector('.raphael-viewer__drawer');
+    el.menu = el.querySelector('.raphael-viewer__menu');
+    el.menuTab = el.menu.removeChild(el.menu.querySelector('.raphael-viewer__menu-tab'));
+    el.activeViewer = null;
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('.raphael-viewer__zoom-in')) {
@@ -62,8 +62,14 @@ const RaphaelViewer = {
         key.classList.toggle('active');
         el.activeViewer.osd.setImageShown(key.dataset.layerKey, key.classList.contains('active'));
       }
-      else if (e.target.closest('.raphael-viewer__drawer__handle')) {
-        drawer.classList.toggle('raphael-viewer__drawer--open');
+      else if (e.target.closest('.raphael-viewer__menu-tab')) {
+        const activatingTab = e.target.closest('.raphael-viewer__menu-tab');
+        el.menu.querySelector('[active]').removeAttribute('active');
+        activatingTab.setAttribute('active', true);
+        const activatingViewer = activatingTab.viewer;
+        el.activeViewer.removeAttribute('active');
+        activatingViewer.setAttribute('active', true);
+        el.activeViewer = activatingViewer;
       }
     }, false);
   },
@@ -71,6 +77,17 @@ const RaphaelViewer = {
     const viewer = el.viewers.appendChild(el.viewer.cloneNode(true));
     if (!el.activeViewer) el.activeViewer = viewer;
     return viewer;
+  },
+  index: (el, viewer, img, label) => {
+    const menuTab = el.menu.appendChild(el.menuTab.cloneNode(true));
+    menuTab.src = img;
+    menuTab.alt = label;
+    menuTab.title = label;
+    menuTab.viewer = viewer;
+    if (viewer === el.activeViewer) {
+      menuTab.setAttribute('active', true);
+      viewer.setAttribute('active', true);
+    }
   },
   label: (viewer, label) => {
     viewer.querySelector('.raphael-viewer__label').innerText = label;
@@ -89,10 +106,13 @@ const raphaelViewerLoader = function(el) {
     Manifesto.loadManifest(m).then((manifest) => {
       RaphaelViewer.init(el);
 
+      const mf = Manifesto.create(manifest);
+
       const loadRaphaelViewer = (mf) => {
         const viewer = RaphaelViewer.newViewer(el);
-        
-        RaphaelViewer.label(viewer, Manifesto.LanguageMap.getValue(mf.getLabel(), 'en-gb'));
+        const label = Manifesto.LanguageMap.getValue(mf.getLabel(), 'en-gb');
+
+        RaphaelViewer.label(viewer, label);
 
         const curtainSyncArgs = {
           container: viewer.querySelector('.raphael-viewer__osd'),
@@ -100,27 +120,29 @@ const raphaelViewerLoader = function(el) {
           osdOptions: {}
         };
 
+        let imgID = null;
         Array.from(mf.getSequences()[0].getCanvases(), (layer) => {
           const key = layer.id;
-          const img = layer.getImages()[0].getResource().getServices()[0].id;
+          imgID = layer.getImages()[0].getResource().getServices()[0].id;
 
           curtainSyncArgs.images.push({
             key: key,
-            tileSource: `${img}/info.json`,
+            tileSource: `${imgID}/info.json`,
             shown: true
           });
 
           RaphaelViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.getLabel(), 'en-gb'), key);
         });
+        
+        RaphaelViewer.index(el, viewer, `${imgID}/full/140,/0/default.jpg`, label);
 
         viewer.osd = new CurtainSyncViewer(curtainSyncArgs);
         viewer.osd.setMode('curtain');
       };
 
-      const mf = Manifesto.create(manifest);
-
       if (mf.isManifest()) {
         loadRaphaelViewer(mf);
+        el.menu.remove();
       } 
       else if (mf.isCollection()) {
         Array.from(mf.getManifests(), (mfObj) => {
