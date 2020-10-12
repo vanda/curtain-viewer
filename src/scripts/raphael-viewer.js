@@ -92,11 +92,12 @@ const RaphaelViewer = {
   label: (viewer, label) => {
     viewer.querySelector('.raphael-viewer__label').innerText = label;
   },
-  key: (el, viewer, label, layerKey) => {
+  key: (el, viewer, label, layerKey, type) => {
     const key = viewer.querySelector('.raphael-viewer__legend').appendChild(el.key.cloneNode(true));
     key.title = `Show/Hide ${label}`;
     key.dataset.layerKey = layerKey;
     key.querySelector('.raphael-viewer__key-label').innerText = label;
+    if (type) key.classList.add(type);
   }
 };
 
@@ -123,6 +124,7 @@ const raphaelViewerLoader = function(el) {
         let imgID = null;
         Array.from(mf.getSequences()[0].getCanvases(), (layer) => {
           const key = layer.id;
+          let type = null;
           imgID = layer.getImages()[0].getResource().getServices()[0].id;
 
           curtainSyncArgs.images.push({
@@ -131,7 +133,22 @@ const raphaelViewerLoader = function(el) {
             shown: true
           });
 
-          RaphaelViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.getLabel(), 'en-gb'), key);
+          const imgTechnique = layer.getMetadata().filter(label => label.getLabel().toLowerCase() == 'imaging technique');
+          if (imgTechnique[0]) {
+            switch (imgTechnique[0].getValue().toLowerCase()) {
+              case 'visible light':
+                type = 'colour';
+                break;
+              case 'infrared':
+                type = 'blackwhite';
+                break;
+              case 'surface scan':
+                type = 'grey';
+                break;
+            }
+          }
+
+          RaphaelViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.getLabel(), 'en-gb'), key, type);
         });
         
         RaphaelViewer.index(el, viewer, `${imgID}/full/140,/0/default.jpg`, label);

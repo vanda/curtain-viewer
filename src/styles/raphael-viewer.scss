@@ -58,6 +58,10 @@ $margins: (
     :fullscreen & {
       height: calc(100vh - 160px);
     }
+
+    @include bpMinSmall {
+      height: 740px;
+    }
   }
 
   &__viewer {
@@ -98,7 +102,7 @@ $margins: (
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 34px margin(small);
+    padding: 14px margin(small) 34px;
 
     @include bpMinSmall {
       padding-left: margin(medium);
@@ -112,6 +116,7 @@ $margins: (
 
     @include bpMinSmall {
       margin-left: auto;
+      margin-top: 20px;
       min-width: 340px;
       width: 34%;
     }
@@ -121,7 +126,7 @@ $margins: (
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin: 20px 0;
     outline: none;
     width: 30%;
 
@@ -132,6 +137,39 @@ $margins: (
       #{&} + & {
         margin-left: 35px;
       }
+
+      &.colour,
+      &.grey,
+      &.blackwhite {
+        padding-left: 50px;
+        position: relative;
+      
+        &::before {
+          background: var(--grey2, #505354);
+          border: 1px solid var(--white, #ffffff);
+          border-radius: 50%;
+          content: '';
+          height: 40px;
+          left: 0;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 40px;
+        }
+      }
+
+      &.colour {
+        &::before {
+          background: 0 0 no-repeat url("data:png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJqADAAQAAAABAAAAJgAAAACE8iBbAAAGKUlEQVRYCbWYe2xTVRzHf/fcu9vn1qVbu3XdxmaFjm04YYMBMUh4JIggqDxEBA3OEM2WSDRRE/QPTPQv/nH7yxAJJiiS8IjEBJ2Rh1EXI0STbWGJg0E7+ga77a7t7XqP59S1u21319sN77Kc1+/3/X3uPeee0/tjQOXl9XqtUXGqU8L4eYgnLOOXbg7FznzPMvfuGLQhl0kvei31x2IQN1YH4sbasGhyCNH6rQmxosUpARtADHNBy3M9lZWVfjUhmXxGfr/fKERi7xDDLuH0T/1w/LMyc+hGEwbI8bV9OKsanrStGRhbfiQUs69txhh3G3Sa41ardWJW6+nOHHG58YjL9QKWcI/Ye2NY89ahOl58WC0fz64rgKXNpopr3P7NX4yIZqeDQUxnXU3N+fRgVmVWMHJXzMg990d4MtqB12wa0/1ztzHLb9ZmPrCUU7Ri1aBv69kSzLIn6mqrjzEMQyYg88oBc7lcurgEp/Cwy6nbuM4GeMqS6aLcUgtGFRK68oB71xWPpCkdKkLwak1NTUSujOQN+qQoVPzSL3bdhrUNhUDJddTU2UjQsuirFQ368Wv25IMgseV+GWB0+qT+O87hznibD7bzckNV9ZwJyeNVJ/EV4qE2ffy6k8aWW6fBkgs9LHTc3jZgk4DnR+EV8MEOue2jrTtYwMvIPwa+Yux1G5dwdVCGVJAkGN0S6NvnXnNxTMTm9JoahZfBCztTto+unIZKCWIsWezhZ8ewJPVQFtqfBKP7VOzkteExoT7n7bsP+whc+kZSWvMvs6DSQpLQWBr5fJiy0D4muaNHxMG/H/8uEk2YFfepKjgLlXAurTNbxXaUKs42Mt2nBDU9zCDOfdfcr9Nq9I2IHDNdwieX+ueCon73YQ94YPe0xDyKPFBUEUtT1Wbh03569CFy9u0MfB0pVxPKA7sI4F41ppk2KqBSDsbYuTJ6HnMQHrcIE7VWwpsam7P8b70xUAVn5rRLDxYARX0YPNHEYa+fPcw2b3/4u64uLaSiMgFLyW0UQTH0Z1gXryNN+RorEGpajCjwN5FwOcBmqKts0G1kFPYrW88PKqmnF3s5FA3xBmX1uUd88ByBO5BrtAAoKsbiB3oUFwymXGX1PT7YBm44OOOwQCgqhGDSxMVEU3qnn1FXqmGyhCTyT18UnPyj9SBsIu0psD12JnnMKHmr7scxC3cdHOS4ovIzq3amjQhG+jidU9fX2gS3eQ803b06p52qQYLDJXh9MCFKxaocFIx8KwACzQB9Y7uSFk36qwqW6ro5xAcRWfphdeazW/mXE6hlM2MUbmBy/UzHPGo8MoSRzsoI8/BNuvieBPA/keu9UDg9Wy6gRTt0iVzp/D0BAhRoUbZbCNyS0s0J1LJf66QHgXKI3BE/mTofmcJ817zgyMJvrXjNiQylKKAxMgP5gqTGg2SR+8liV3sVCqdljQNGrjKAyBfyxcX7tCE1gYJNAN5WNZaZNoXALSvbHaJf7Yh8tnc/9Z6xmWWRO1MusxUiv229bZl9hbTUwCGGdW+wH22mqQREcwlcEXSv/EA/ohQouBTAs1JpVH1/Prinq94dYZmibsqU3NZpLqG1Q+fgDWgwO0yogTypVdm9828rwWlYw+DqyjcdlIWqJ8FoggOxTOeeH80lZH4DqbAPCJSnPdV6dGU2HANM4I2lvSUIoc5UsiV9ENIER2kVOvHMaZOHGIohsonc/x+gUrcngxNfWnzKU6KpPiFPssyc3MSDpgju3HN/03dx0v7lTaGN/H4o6Gu8t70vFVddyTBiT0vRH1vsW0bra6v3ypMr6SdGlegATXCs3qkf7TpgukXa6WlVF0m9FdU+ubL9FoWiMeVQVCUDjHbQrAulb1zMn//47bKYVpP7QlC7hVwGjhu8sn5jbJ3Fep7Gys70UO2MqcwORnMJUgL3/PBzZPjbK5N1iYSk+EFMffNNJYeQ+8iShpHDDoeD7OyFJ+7kgKlUZzwBXRcuT/T/+me0PBrDZLvNTBspgpHlYSRP6EV7TfD9xqZmnmEWnuqUA8qTw+FxyXK1b3Lor6EYOyFgQzQGpvgUtvS2/wY8ywaMLBsu0/DCRqstcbC+3mnVaAtODv8Lfi90e2rm1BEAAAAASUVORK5CYII=");
+          background-size: cover;
+        }
+      }
+
+      &.blackwhite {
+        &::before {
+          background: linear-gradient(90deg, #fff 0%, #fff 50%, #000 50%, #000 100%, #000, #000, #fff, #fff);
+        }
+      }
     }
   }
 
@@ -139,7 +177,7 @@ $margins: (
     background: var(--grey3, #b7b8bd);
     border-radius: 12px;
     height: 24px;
-    margin-top: 10px;
+    margin-top: 5px;
     position: relative;
     width: 44px;
 
@@ -151,8 +189,18 @@ $margins: (
       left: 2px;
       position: absolute;
       top: 2px;
-      transition: transform 340ms;
+      transition: transform .3s;
       width: 20px;
+    }
+
+    @include bpMinSmall {
+      height: 18px;
+      width: 32px;
+
+      &::after {
+        height: 14px;
+        width: 14px;
+      }
     }
   }
 
@@ -160,7 +208,7 @@ $margins: (
     background: var(--green, #50e3c2);
 
     &::after {
-      transform: translateX(20px);
+      transform: translateX(100%);
     }
   }
 
