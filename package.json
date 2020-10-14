@@ -1,6 +1,6 @@
 {
   "name": "raphael-viewer",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "description": "A viewer for superimposed, aligned IIIF images.",
   "keywords": [
     "v&a",
