@@ -1,5 +1,5 @@
-import raphaelViewerLoader, { RaphaelViewer } from './raphael-viewer';
+import curtainViewerLoader, { CurtainViewer } from './curtain-viewer';
 
-Array.from(document.querySelectorAll('.raphael-viewer'), (raphaelViewerEl) => {
-  raphaelViewerLoader(raphaelViewerEl);
+Array.from(document.querySelectorAll('.curtain-viewer'), (curtainViewerEl) => {
+  curtainViewerLoader(curtainViewerEl);
 });

@@ -31,7 +31,7 @@ $margins: (
   @return map-get($margins, $size);
 }
 
-.raphael-viewer {
+.curtain-viewer {
   --white: #ffffff;
   --black: #000000;
   --grey1: #1d1e20;

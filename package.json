@@ -1,5 +1,5 @@
 {
-  "name": "raphael-viewer",
+  "name": "curtain-viewer",
   "version": "1.0.0",
   "description": "A viewer for superimposed, aligned IIIF images.",
   "keywords": [
@@ -10,13 +10,13 @@
     "layer",
     "viewer"
   ],
-  "homepage": "https://github.com/vanda/raphael-viewer",
-  "bugs": "https://github.com/vanda/raphael-viewer/issues",
+  "homepage": "https://github.com/vanda/curtain-viewer",
+  "bugs": "https://github.com/vanda/curtain-viewer/issues",
   "license": "MIT",
   "author": "Luca Carini <l.carini@vam.ac.uk> (https://vam.ac.uk)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vanda/raphael-viewer.git"
+    "url": "https://github.com/vanda/curtain-viewer.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --colors",
