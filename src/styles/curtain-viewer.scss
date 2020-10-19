@@ -310,7 +310,6 @@ $margins: (
   &__drawer {
     background: var(--grey1, #1d1e20);
     padding-bottom: margin(small);
-    position: absolute;
     width: 100%;
 
     @include bpMinSmall {
