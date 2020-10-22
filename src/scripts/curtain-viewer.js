@@ -11,7 +11,7 @@ const CurtainViewer = {
         <div class="curtain-viewer__viewer">
           <div class="curtain-viewer__osd"></div>
           <div class="curtain-viewer__legend">
-            <div class="curtain-viewer__key active" title="Show/Hide" tabindex="0">
+            <div class="curtain-viewer__key" title="Show/Hide" tabindex="0">
               <div class="curtain-viewer__key-label"></div>
               <div class="curtain-viewer__key-toggle"></div>
             </div>
@@ -97,6 +97,7 @@ const CurtainViewer = {
     key.title = `Show/Hide ${label}`;
     key.dataset.layerKey = layerKey;
     key.querySelector('.curtain-viewer__key-label').innerText = label;
+    if (key === viewer.querySelector('.curtain-viewer__key')) key.classList.add('active');
     if (type) key.classList.add(type);
   }
 };
@@ -121,18 +122,12 @@ const curtainViewerLoader = function(el) {
           osdOptions: {}
         };
 
-        let imgID = null;
+        let layer1 = true;
+        let thumbImgID = null;
         Array.from(mf.getSequences()[0].getCanvases(), (layer) => {
-          const key = layer.id;
+          const imgID = layer.getImages()[0].getResource().getServices()[0].id;
+
           let type = null;
-          imgID = layer.getImages()[0].getResource().getServices()[0].id;
-
-          curtainSyncArgs.images.push({
-            key: key,
-            tileSource: `${imgID}/info.json`,
-            shown: true
-          });
-
           const imgTechnique = layer.getMetadata().filter(label => label.getLabel().toLowerCase() == 'imaging technique');
           if (imgTechnique[0]) {
             switch (imgTechnique[0].getValue().toLowerCase()) {
@@ -148,10 +143,21 @@ const curtainViewerLoader = function(el) {
             }
           }
 
+          const key = layer.id;
+          curtainSyncArgs.images.push({
+            key: key,
+            tileSource: `${imgID}/info.json`,
+            shown: layer1
+          });
           CurtainViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.getLabel(), 'en-gb'), key, type);
+
+          if (layer1) {
+            layer1 = false;
+            thumbImgID = imgID;
+          }
         });
         
-        CurtainViewer.index(el, viewer, `${imgID}/full/140,/0/default.jpg`, label);
+        CurtainViewer.index(el, viewer, `${thumbImgID}/full/140,/0/default.jpg`, label);
 
         viewer.osd = new CurtainSyncViewer(curtainSyncArgs);
         viewer.osd.setMode('curtain');
