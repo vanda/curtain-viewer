@@ -1,12 +1,18 @@
 @font-face {
   font-family: 'The Sans';
   font-style: normal;
-  font-weight: 200;
-  src: url('../fonts/V&A TheSansA6-4SemiLight.woff2') format('woff2'), url('../fonts/V&A TheSansA6-4SemiLight.woff') format('woff');
+  font-weight: 600;
+  src: url('../fonts/V&A TheSansA6-6SemiBold.woff2') format('woff2'), url('../fonts/V&A TheSansA6-6SemiBold.woff') format('woff');
 }
 
 @mixin bpMinSmall {
   @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin bpMinMedium {
+  @media (min-width: 992px) {
     @content;
   }
 }
@@ -41,14 +47,10 @@ $margins: (
   background: var(--black, #000000);
 	font-family: 'The Sans', Arial, Helvetica, sans-serif;
   font-size: 14px;
-  font-weight: 200;
+  font-weight: 600;
   line-height: 1.43;
   outline: 0;
 	position: relative;
-
-  @include bpMinSmall {
-    font-size: 14px;
-  }
 
   &__viewers {
     height: 500px;
@@ -56,7 +58,7 @@ $margins: (
     position: relative;
 
     :fullscreen & {
-      height: calc(100vh - 160px);
+      height: calc(100vh - 141px);
     }
 
     @include bpMinSmall {
@@ -87,7 +89,7 @@ $margins: (
   }
 
   &__osd {
-    cursor: crosshair;
+    cursor: move;
     flex: 0 1 100%;
     .openseadragon-canvas {
       outline: none;
@@ -102,35 +104,40 @@ $margins: (
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 14px margin(small) 34px;
+    padding: 14px margin(small);
 
     @include bpMinSmall {
-      padding-left: margin(medium);
-      padding-right: margin(medium);
+      padding: 28px margin(medium);
     }
   }
 
   &__label {
+    font-size: 12px;
+    font-weight: bold;
     order: 1;
     width: 100%;
 
-    @include bpMinSmall {
+    @include bpMinMedium {
       margin-left: auto;
-      margin-top: 20px;
       min-width: 340px;
       width: 34%;
     }
   }
 
   &__key {
+    color: var(--grey3, #b7b8bd);
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 0 0 20px;
     outline: none;
     width: 30%;
 
-    @include bpMinSmall {
+    &.active {
+      color: var(--white, #ffffff);
+    }
+
+    @include bpMinMedium {
       margin-bottom: 0;
       width: 12%;
 
@@ -193,7 +200,7 @@ $margins: (
       width: 20px;
     }
 
-    @include bpMinSmall {
+    @include bpMinMedium {
       height: 18px;
       width: 32px;
 
@@ -309,23 +316,22 @@ $margins: (
 
   &__drawer {
     background: var(--grey1, #1d1e20);
-    padding-bottom: margin(small);
     width: 100%;
 
-    @include bpMinSmall {
-      padding-bottom: margin(medium);
+    @include bpMinMedium {
+      padding-bottom: margin(small);
     }
   }
 
   &__menu {
     align-items: center;
-    border-top: 1px solid var(--white, #ffffff);
+    border-top: 1px solid var(--grey2, #505354);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     margin: 0 margin(small);
     overflow: auto;
-    padding: 14px 3px;
+    padding: 14px 3px 12px;
 
     @include bpMinSmall {
       margin-left: margin(medium);
