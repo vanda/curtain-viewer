@@ -10,11 +10,11 @@
       "@type": "sc:Sequence", 
       "canvases": [
         {
-          "@id": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c0", 
+          "@id": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c2", 
           "@type": "sc:Canvas", 
-          "label": "Surface view",
+          "label": "Visible view",
           "metadata": [
-            {"label": "Imaging technique", "value": "Surface scan"}
+            {"label": "Imaging technique", "value": "Visible light"}
           ],
           "height": 41439, 
           "width": 64678, 
@@ -23,18 +23,18 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "https://vam-etc-images.azureedge.net/collections/2020MR0377/full/full/0/default.jpg", 
+                "@id": "https://vam-etc-images.azureedge.net/collections/2020MP2548/full/full/0/default.jpg", 
                 "@type": "dctypes:Image", 
                 "format": "image/jpeg", 
                 "height": 41439, 
                 "width": 64678, 
                 "service": {
                   "@context": "http://iiif.io/api/image/2/context.json", 
-                  "@id": "https://vam-etc-images.azureedge.net/collections/2020MR0377", 
+                  "@id": "https://vam-etc-images.azureedge.net/collections/2020MP2548", 
                   "profile": "http://iiif.io/api/image/2/level2.json"
                 }
               }, 
-              "on": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c0"
+              "on": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c2"
             }
           ]
         }, 
@@ -66,13 +66,13 @@
               "on": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c1"
             }
           ]
-        }, 
+        },
         {
-          "@id": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c2", 
+          "@id": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c0", 
           "@type": "sc:Canvas", 
-          "label": "Visible view",
+          "label": "Surface view",
           "metadata": [
-            {"label": "Imaging technique", "value": "Visible light"}
+            {"label": "Imaging technique", "value": "Surface scan"}
           ],
           "height": 41439, 
           "width": 64678, 
@@ -81,18 +81,18 @@
               "@type": "oa:Annotation", 
               "motivation": "sc:painting", 
               "resource": {
-                "@id": "https://vam-etc-images.azureedge.net/collections/2020MP2548/full/full/0/default.jpg", 
+                "@id": "https://vam-etc-images.azureedge.net/collections/2020MR0377/full/full/0/default.jpg", 
                 "@type": "dctypes:Image", 
                 "format": "image/jpeg", 
                 "height": 41439, 
                 "width": 64678, 
                 "service": {
                   "@context": "http://iiif.io/api/image/2/context.json", 
-                  "@id": "https://vam-etc-images.azureedge.net/collections/2020MP2548", 
+                  "@id": "https://vam-etc-images.azureedge.net/collections/2020MR0377", 
                   "profile": "http://iiif.io/api/image/2/level2.json"
                 }
               }, 
-              "on": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c2"
+              "on": "https://iiif.vam.ac.uk/demo-raphael-manifest-6/canvas/c0"
             }
           ]
         }
