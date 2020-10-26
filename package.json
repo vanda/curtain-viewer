@@ -1,6 +1,6 @@
 {
   "name": "curtain-viewer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A viewer for superimposed, aligned IIIF images.",
   "keywords": [
     "v&a",
