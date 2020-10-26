@@ -113,13 +113,14 @@ $margins: (
 
   &__label {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 100;
     order: 1;
     width: 100%;
 
     @include bpMinMedium {
       margin-left: auto;
       min-width: 340px;
+      text-align: right;
       width: 34%;
     }
   }
