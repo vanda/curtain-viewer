@@ -1,0 +1,43 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/manifest.json",
+  "@type": "sc:Collection",
+  "label": "V&A Raphael tapestry viewer",
+  "manifests": [
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O102006/manifest.json",
+      "label": "The Miraculous Draught of Fishes"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069360/manifest.json",
+      "label": "Christ's Charge to Peter"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069359/manifest.json",
+      "label": "The Healing of the Lame Man"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069358/manifest.json",
+      "label": "The Death of Ananias"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069355/manifest.json",
+      "label": "The Conversion of the Proconsul also known as The Blinding of Elymas"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069357/manifest.json",
+      "label": "The Sacrifice at Lystra"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069356/manifest.json",
+      "label": "Paul Preaching at Athens"
+    }
+  ]
+}
