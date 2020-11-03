@@ -11,26 +11,28 @@ const CurtainViewer = {
         <div class="curtain-viewer__viewer">
           <div class="curtain-viewer__osd"></div>
           <div class="curtain-viewer__legend">
-            <div class="curtain-viewer__key" title="Show/Hide" tabindex="0">
+            <a class="curtain-viewer__key" title="Show/Hide" href="#0">
               <div class="curtain-viewer__key-label"></div>
               <div class="curtain-viewer__key-toggle"></div>
-            </div>
+            </a>
             <div class="curtain-viewer__label"></div>
           </div>
         </div>
       </div>
       <div class="curtain-viewer__zoom-ctrls">
-        <div class="curtain-viewer__zoom-in" id="curtain-viewer__zoom-in" title="Zoom in" tabindex="0"></div>
-        <div class="curtain-viewer__zoom-out" id="curtain-viewer__zoom-out" title="Zoom out" tabindex="0"></div>
+        <a class="curtain-viewer__zoom-in" id="curtain-viewer__zoom-in" title="Zoom in" href="#0"></a>
+        <a class="curtain-viewer__zoom-out" id="curtain-viewer__zoom-out" title="Zoom out" href="#0"></a>
       </div>
-      <div class="curtain-viewer__fullscreen" title="Full screen" tabindex="0">
+      <a class="curtain-viewer__fullscreen" title="Full screen" href="#0">
         <svg role="img" viewBox="0 0 100 100">
           <path d="M12.346 22.572l17.619 17.612 10.219-10.22-17.612-17.618L31.925 3H3v28.925l9.346-9.353zm10.226 65.082l17.612-17.619-10.22-10.219-17.618 17.612L3 68.075V97h28.925l-9.353-9.346zm54.856-75.308L59.816 29.965l10.22 10.219 17.618-17.612L97 31.925V3H68.075l9.353 9.346zm10.226 65.082L70.035 59.816l-10.219 10.22 17.612 17.618L68.075 97H97V68.075l-9.346 9.353z"></path>
         </svg>
-      </div>
+      </a>
       <div class="curtain-viewer__drawer">
         <div class="curtain-viewer__menu" role="listbox" aria-label="image selector">
-          <img class="curtain-viewer__menu-tab" src="" alt="" title="">
+          <a class="curtain-viewer__menu-tab" title="" href="#0">
+            <img src="" alt="">
+          </a>
         </div>
       </div>
     `;
@@ -80,8 +82,9 @@ const CurtainViewer = {
   },
   index: (el, viewer, img, label) => {
     const menuTab = el.menu.appendChild(el.menuTab.cloneNode(true));
-    menuTab.src = img;
-    menuTab.alt = label;
+    const menuImg = menuTab.querySelector('img');
+    menuImg.src = img;
+    menuImg.alt = label;
     menuTab.title = label;
     menuTab.viewer = viewer;
     if (viewer === el.activeViewer) {
@@ -119,16 +122,49 @@ const curtainViewerLoader = function(el) {
         const curtainSyncArgs = {
           container: viewer.querySelector('.curtain-viewer__osd'),
           images: [],
-          osdOptions: {}
+          osdOptions: {
+            tabIndex: -1
+          }
         };
 
+        let layers = null;
+        /* P2 manifest, else P3 */
+        if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+          layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+            return { canvas: item };
+          });
+        } else {
+          const stack = mf.getAllRanges().find((range) => {
+            return range.__jsonld.behavior.includes('superimpose-regions');
+          });
+          if (stack) {
+            console.log("Note! Curtain viewer does not do alignment, so any alignment should be done in the tilesources themselves.");
+            layers = Array.from(stack.__jsonld.items, (item) => {
+              return {
+                canvas: mf.getSequences()[0].getCanvasById(item.source),
+                region: item.selector.value
+              };
+            });
+          }
+        }
+
         let layer1 = true;
+        let imgID = null;
         let thumbImgID = null;
-        Array.from(mf.getSequences()[0].getCanvases(), (layer) => {
-          const imgID = layer.getImages()[0].getResource().getServices()[0].id;
+        let clipped = false;
+
+        Array.from(layers, (layer) => {
+          let region = null;
+
+          if (layer.region) {
+            imgID = layer.canvas.getContent()[0].getBody()[0].getServices()[0].id;
+            region = layer.region.slice(9).split(',');
+          } else {
+            imgID = layer.canvas.getImages()[0].getResource().getServices()[0].id;
+          }
 
           let type = null;
-          const imgTechnique = layer.getMetadata().filter(label => label.getLabel().toLowerCase() == 'imaging technique');
+          const imgTechnique = layer.canvas.getMetadata().filter(label => label.getLabel().toLowerCase() == 'imaging technique');
           if (imgTechnique[0]) {
             switch (imgTechnique[0].getValue().toLowerCase()) {
               case 'visible light':
@@ -137,30 +173,31 @@ const curtainViewerLoader = function(el) {
               case 'infrared':
                 type = 'blackwhite';
                 break;
+              case 'x-ray':
               case 'surface scan':
                 type = 'grey';
                 break;
             }
           }
 
-          const key = layer.id;
+          const key = layer.canvas.id;
           curtainSyncArgs.images.push({
             key: key,
             tileSource: `${imgID}/info.json`,
             shown: layer1
           });
-          CurtainViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.getLabel(), 'en-gb'), key, type);
+          CurtainViewer.key(el, viewer, Manifesto.LanguageMap.getValue(layer.canvas.getLabel(), 'en-gb'), key, type);
 
           if (layer1) {
             layer1 = false;
             thumbImgID = imgID;
           }
         });
-        
-        CurtainViewer.index(el, viewer, `${thumbImgID}/full/140,/0/default.jpg`, label);
 
         viewer.osd = new CurtainSyncViewer(curtainSyncArgs);
         viewer.osd.setMode('curtain');
+
+        CurtainViewer.index(el, viewer, `${thumbImgID}/full/140,/0/default.jpg`, label);
       };
 
       if (mf.isManifest()) {

@@ -1,0 +1,56 @@
+{
+    "@context": "http://iiif.io/api/presentation/2/context.json",
+    "@id": "https://leidenstage.wpengine.com/iiif/presentation/v2/collection/manifest/",
+    "@type": "sc:Collection",
+    "label": "The Leiden Collection Manifest",
+    "attribution": "The Leiden Collection",
+    "description": "The Leiden Collection has implemented IIIF in order to make its artwork images available for viewing in concert with other IIIF-optimized images from repositories around the world.",
+    "logo": "https://leidenstage.wpengine.com/wp-content/themes/leiden/dist/images/logos/leiden-logo-dark.jpg",
+    "viewingDirection": "left-to-right",
+    "related": [
+        {
+            "@id": "https://leidenstage.wpengine.com/collection/"
+        }
+    ],
+    "manifests": [
+        {
+            "@id": "https://leidenstage.wpengine.com/iiif/presentation/v2/2386/manifest/",
+            "@type": "sc:Manifest",
+            "label": "Bookkeeper at His Desk",
+            "service": [
+                {
+                    "@context": "http://arkyves.org/help/ArkyvesIntro2.0.pdf",
+                    "@id": "http://0f180b0f-348f-2b11-6767-a09230d7ace1",
+                    "label": "IconClass Terms",
+                    "terms": ""
+                }
+            ]
+        },
+        {
+            "@id": "https://leidenstage.wpengine.com/iiif/presentation/v2/2120/manifest/",
+            "@type": "sc:Manifest",
+            "label": "Musical Company",
+            "service": [
+                {
+                    "@context": "http://arkyves.org/help/ArkyvesIntro2.0.pdf",
+                    "@id": "http://621ad786-6f24-59b0-fa21-780183fd8afa",
+                    "label": "IconClass Terms",
+                    "terms": null
+                }
+            ]
+        },
+        {
+            "@id": "https://leidenstage.wpengine.com/iiif/presentation/v2/2164/manifest/",
+            "@type": "sc:Manifest",
+            "label": "Cat Crouching on the Ledge of an Artist’s Atelier",
+            "service": [
+                {
+                    "@context": "http://arkyves.org/help/ArkyvesIntro2.0.pdf",
+                    "@id": "http://4fe22a16-9b99-4458-6bdf-22bb19fdfe44",
+                    "label": "IconClass Terms",
+                    "terms": ""
+                }
+            ]
+        }
+    ]
+}

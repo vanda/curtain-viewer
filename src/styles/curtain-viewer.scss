@@ -91,23 +91,24 @@ $margins: (
   &__osd {
     cursor: move;
     flex: 0 1 100%;
-    .openseadragon-canvas {
-      outline: none;
-    }
   }
 
   
   &__legend {
-    background: var(--grey1, #1d1e20);
-    color: var(--white, #ffffff);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 14px margin(small);
+    display: none;
 
-    @include bpMinSmall {
-      padding: 28px margin(medium);
+    .curtain-viewer__viewer[active] & {
+      background: var(--grey1, #1d1e20);
+      color: var(--white, #ffffff);
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      padding: 14px margin(small);
+
+      @include bpMinSmall {
+        padding: 28px margin(medium);
+      }
     }
   }
 
@@ -132,10 +133,16 @@ $margins: (
     flex-direction: column;
     margin: 0 0 20px;
     outline: none;
+    text-decoration: none;
     width: 30%;
 
     &.active {
       color: var(--white, #ffffff);
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
     }
 
     @include bpMinMedium {
@@ -239,7 +246,6 @@ $margins: (
     display: block;
     height: 32px;
     margin: margin(small);
-    outline: none;
     position: relative;
     width: 32px;
     z-index: 1;
@@ -344,16 +350,24 @@ $margins: (
     border: 1px solid var(--white, #ffffff);
     cursor: pointer;
     display: block;
+    outline: 0;
 
     #{&} + & {
       margin-left: margin(medium);
     }
 
-    &[active] {
-      border: 4px solid var(--green, #ffffff);
+    &[active]#{&},
+    &:hover,
+    &:focus {
+      border: 4px solid var(--green, #50e3c2);
       margin-right: -6px;
       margin-top: -6px;
       transform: translate(-3px, 3px);
+    }
+
+    &:hover,
+    &:focus {
+      border-color: var(--white, #ffffff);
     }
   }
 }
