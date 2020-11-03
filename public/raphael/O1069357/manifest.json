@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069357/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "The Sacrifice at Lystra, by Raphael, about 1515 – 16, Italy", 
+  "label": "The Sacrifice at Lystra, by Raphael, about 1515 – 16", 
   "viewingDirection": "left-to-right", 
   "sequences": [
     {

@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069356/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "Paul Preaching at Athens, by Raphael, about 1515 – 16, Italy", 
+  "label": "Paul Preaching at Athens, by Raphael, about 1515 – 16", 
   "viewingDirection": "left-to-right", 
   "sequences": [
     {

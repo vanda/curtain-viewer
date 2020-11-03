@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069358/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "The Death of Ananias, by Raphael, about 1515 – 16, Italy", 
+  "label": "The Death of Ananias, by Raphael, about 1515 – 16", 
   "viewingDirection": "left-to-right", 
   "sequences": [
     {

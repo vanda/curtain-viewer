@@ -1,0 +1,28 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "https://vanda.github.io/curtain-viewer/public/manifest_raphael_samples.json",
+  "@type": "sc:Collection",
+  "label": "V&A Raphael tapestry viewer",
+  "manifests": [
+    {
+      "@type": "sc:Manifest",
+      "@id": "/public/manifest_raphael_sample_1.json",
+      "label": "Sample 1"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "/public/manifest_raphael_sample_2.json",
+      "label": "Sample 2"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "/public/manifest_raphael_sample_3.json",
+      "label": "Sample 3"
+    },
+    {
+      "@type": "sc:Manifest",
+      "@id": "/public/manifest_raphael_sample_4.json",
+      "label": "Sample 4"
+    }
+  ]
+}

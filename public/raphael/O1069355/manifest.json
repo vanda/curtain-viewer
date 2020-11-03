@@ -2,7 +2,7 @@
   "@context": "http://iiif.io/api/presentation/2/context.json", 
   "@id": "https://iiif.vam.ac.uk/experiences/curtain/raphael/O1069355/manifest.json", 
   "@type": "sc:Manifest", 
-  "label": "The Conversion of the Proconsul also known as The Blinding of Elymas, by Raphael, about 1515 – 16, Italy", 
+  "label": "The Conversion of the Proconsul also known as The Blinding of Elymas, by Raphael, about 1515 – 16", 
   "viewingDirection": "left-to-right", 
   "sequences": [
     {
