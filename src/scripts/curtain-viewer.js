@@ -11,28 +11,28 @@ const CurtainViewer = {
         <div class="curtain-viewer__viewer">
           <div class="curtain-viewer__osd"></div>
           <div class="curtain-viewer__legend">
-            <a class="curtain-viewer__key" title="Show/Hide" href="#0">
+            <button class="curtain-viewer__key" title="Show/Hide">
               <div class="curtain-viewer__key-label"></div>
               <div class="curtain-viewer__key-toggle"></div>
-            </a>
+            </button>
             <div class="curtain-viewer__label"></div>
           </div>
         </div>
       </div>
       <div class="curtain-viewer__zoom-ctrls">
-        <a class="curtain-viewer__zoom-in" id="curtain-viewer__zoom-in" title="Zoom in" href="#0"></a>
-        <a class="curtain-viewer__zoom-out" id="curtain-viewer__zoom-out" title="Zoom out" href="#0"></a>
+        <button class="curtain-viewer__zoom-in" id="curtain-viewer__zoom-in" title="Zoom in"></button>
+        <button class="curtain-viewer__zoom-out" id="curtain-viewer__zoom-out" title="Zoom out"></button>
       </div>
-      <a class="curtain-viewer__fullscreen" title="Full screen" href="#0">
+      <button class="curtain-viewer__fullscreen" title="Full screen">
         <svg role="img" viewBox="0 0 100 100">
           <path d="M12.346 22.572l17.619 17.612 10.219-10.22-17.612-17.618L31.925 3H3v28.925l9.346-9.353zm10.226 65.082l17.612-17.619-10.22-10.219-17.618 17.612L3 68.075V97h28.925l-9.353-9.346zm54.856-75.308L59.816 29.965l10.22 10.219 17.618-17.612L97 31.925V3H68.075l9.353 9.346zm10.226 65.082L70.035 59.816l-10.219 10.22 17.612 17.618L68.075 97H97V68.075l-9.346 9.353z"></path>
         </svg>
-      </a>
+      </button>
       <div class="curtain-viewer__drawer">
         <div class="curtain-viewer__menu" role="listbox" aria-label="image selector">
-          <a class="curtain-viewer__menu-tab" title="" href="#0">
+          <button class="curtain-viewer__menu-tab" title="">
             <img src="" alt="">
-          </a>
+          </button>
         </div>
       </div>
     `;

@@ -24,7 +24,6 @@
   border-radius: 0;
   box-shadow: 0 3px 4px 0 var(--black, #000000);
   height: 16px;
-  outline: none;
   width: 8px;
 }
 
@@ -127,12 +126,16 @@ $margins: (
   }
 
   &__key {
+    appearance: none;
+    background: none;
+    border: none;
     color: var(--grey3, #b7b8bd);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     margin: 0 0 20px;
     outline: none;
+    padding: 0;
     text-decoration: none;
     width: 30%;
 
@@ -239,13 +242,16 @@ $margins: (
   &__zoom-in,
   &__zoom-out,
   &__fullscreen {
+    appearance: none;
     background: var(--white, #ffffff);
+    border: none;
     border-radius: 50%;
     color: var(--black, #000000);
     cursor: pointer;
     display: block;
     height: 32px;
     margin: margin(small);
+    padding: 0;
     position: relative;
     width: 32px;
     z-index: 1;
@@ -347,10 +353,13 @@ $margins: (
   }
 
   &__menu-tab {
+    appearance: none;
+    background: none;
     border: 1px solid var(--white, #ffffff);
     cursor: pointer;
     display: block;
     outline: 0;
+    padding: 0;
 
     #{&} + & {
       margin-left: margin(medium);
