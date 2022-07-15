@@ -112,16 +112,15 @@ $margins: (
   }
 
   &__label {
+    flex: 0 1 100%;
     font-size: 12px;
     font-weight: 100;
     order: 1;
-    width: 100%;
 
     @include bpMinMedium {
-      margin-left: auto;
-      min-width: 340px;
+      flex: 1 1 34%;
+      margin-left: 150px;
       text-align: right;
-      width: 34%;
     }
   }
 
