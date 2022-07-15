@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'The Sans';
-  font-style: normal;
-  font-weight: 600;
-  src: url('../fonts/V&A TheSansA6-6SemiBold.woff2') format('woff2'), url('../fonts/V&A TheSansA6-6SemiBold.woff') format('woff');
-}
-
 @mixin bpMinSmall {
   @media (min-width: 768px) {
     @content;
@@ -44,7 +37,7 @@ $margins: (
   --grey3: #b7b8bd;
   --green: #50e3c2;
   background: var(--black, #000000);
-	font-family: 'The Sans', Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
