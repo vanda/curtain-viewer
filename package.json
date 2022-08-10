@@ -42,7 +42,7 @@
     "gh-pages": "2.x",
     "html-webpack-plugin": "5.x",
     "mini-css-extract-plugin": "0.x",
-    "node-sass": "4.x",
+    "node-sass": "7.x",
     "postcss-css-variables": "latest",
     "postcss-loader": "latest",
     "sass-loader": "8.x",
