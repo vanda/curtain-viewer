@@ -19,7 +19,7 @@
     "url": "https://github.com/vanda/curtain-viewer.git"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --colors",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
     "start": "webpack serve --open --config webpack/webpack.config.dev.js",
     "version": "npm run build && gh-pages -d build",
     "postversion": "git push && git push --tags"
