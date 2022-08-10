@@ -1,12 +1,12 @@
 const common = require('./webpack.common.js');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const Path = require('path');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const Webpack = require('webpack');
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-cheap-source-map',
   output: {
     chunkFilename: 'js/[name].chunk.js'
   },

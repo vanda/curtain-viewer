@@ -1,5 +1,4 @@
 import '../styles/curtain-viewer.scss';
-import 'element-closest-polyfill';
 import 'fullscreen-polyfill';
 import './manifesto';
 import './openseadragon-curtain-sync'; // modified
