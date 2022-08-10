@@ -1,0 +1,16 @@
+/*!
+ * fullscreen-polyfill
+ * 1.0.4 - 12/2/2020
+ * https://github.com/nguyenj/fullscreen-polyfill#readme
+ * (c) John Nguyen; MIT License
+ */
+
+//! Built on 2022-06-07
+
+//! Git commit: v3.1.0-1-c1c380f
+
+//! License: http://openseadragon.github.io/license/
+
+//! http://openseadragon.github.io
+
+//! openseadragon 3.1.0
