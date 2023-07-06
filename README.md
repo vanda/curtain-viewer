@@ -6,7 +6,7 @@ A [viewer](https://vanda.github.io/curtain-viewer/) based on OpenSeaDragon, usin
 ### Installation
 
 ```
-npm install
+npm ci
 ```
 
 ### Start Dev Server
