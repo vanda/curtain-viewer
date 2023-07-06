@@ -10,9 +10,6 @@ module.exports = merge(common, {
   output: {
     chunkFilename: 'js/[name].chunk.js'
   },
-  devServer: {
-    inline: true
-  },
   plugins: [
     new Webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
@@ -41,7 +38,17 @@ module.exports = merge(common, {
       },
       {
         test: /\.s?css$/i,
-        use: ['style-loader', 'css-loader?sourceMap=true', 'postcss-loader', 'sass-loader']
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
       }
     ]
   }
